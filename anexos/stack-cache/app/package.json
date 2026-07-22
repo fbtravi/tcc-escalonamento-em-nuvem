@@ -1,0 +1,13 @@
+{
+  "name": "tcc-odds-api",
+  "version": "1.0.0",
+  "description": "Node API for appendix stack (Redis + Nginx cache)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "redis": "^4.7.0"
+  }
+}
