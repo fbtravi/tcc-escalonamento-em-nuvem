@@ -29,6 +29,18 @@ async function fetchOddsFromUpstream(matchId) {
   };
 }
 
+app.get("/", (_req, res) => {
+  res.json({
+    service: "tcc-odds-api",
+    description: "Demo de cache-aside (Redis) atrás de proxy reverso com cache (Nginx)",
+    endpoints: {
+      health: "/health",
+      odds: "/api/v1/odds/:matchId"
+    },
+    example: "/api/v1/odds/10"
+  });
+});
+
 app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
