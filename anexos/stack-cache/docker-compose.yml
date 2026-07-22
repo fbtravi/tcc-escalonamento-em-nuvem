@@ -1,0 +1,28 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: tcc-redis
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+
+  app:
+    build:
+      context: ./app
+    container_name: tcc-node-app
+    environment:
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
+      - CACHE_TTL_SECONDS=90
+    depends_on:
+      - redis
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: tcc-nginx
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
